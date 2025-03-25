@@ -3,9 +3,13 @@ from HAL import HAL
 import cv2
 import numpy as np
 
-Kp = 0.005
-Ki = 0.0001
-Kd = 0.0001
+
+# scaling by 2 cause some more deviation from center.
+scale = 2.0
+
+Kp = 0.005 * scale
+Ki = 0.0001 * scale
+Kd = 0.0001 * scale
 
 # previous error and error some
 prev_err = 0
@@ -44,7 +48,7 @@ while True:
 
             ang_vel = -(P + I + D)
 
-            HAL.setV(1)
+            HAL.setV(1 * scale)
             HAL.setW(ang_vel)
 
         cv2.drawContours(frame, [cnt], -1, (0, 255, 0), 2)
